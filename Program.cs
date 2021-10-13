@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using ActivityManagement.Data;
+using ActivityManagement.Views;
 
 namespace ActivityManagement
 {
@@ -14,7 +15,7 @@ namespace ActivityManagement
             Application.SetCompatibleTextRenderingDefault(false);
             var context = new ApplicationDbContext();
             SeedData.Initialize(context);
-            Application.Run(new Form1());
+            Application.Run(new Login());
         }
     }
 }
