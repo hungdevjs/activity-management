@@ -145,7 +145,8 @@ namespace ActivityManagement.Data
                     FirstName = "Elon",
                     LastName = "Musk",
                     PhoneNumber = "0123456789",
-                    Address = "Texas, USA"
+                    Address = "Texas, USA",
+                    ClassName = "KT23-01"
                 };
                 var student2 = new Student
                 {
@@ -156,7 +157,8 @@ namespace ActivityManagement.Data
                     FirstName = "Mark",
                     LastName = "Zuckerburg",
                     PhoneNumber = "0456789123",
-                    Address = "Texas, USA"
+                    Address = "Texas, USA",
+                    ClassName = "KT23-02"
                 };
                 context.Students.AddRange(student1, student2);
 
