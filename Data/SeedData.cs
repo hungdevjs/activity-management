@@ -10,7 +10,8 @@ namespace ActivityManagement.Data
         public static void Initialize(ApplicationDbContext context)
         {
             var now = DateTime.UtcNow;
-            var password = BCrypt.Net.BCrypt.HashPassword(Constants.DefaultPassword);
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(6);
+            var password = BCrypt.Net.BCrypt.HashPassword(Constants.DefaultPassword, salt);
 
             if (!context.Years.Any())
             {
