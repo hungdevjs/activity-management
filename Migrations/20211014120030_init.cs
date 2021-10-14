@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ActivityManagement.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,7 +228,7 @@ namespace ActivityManagement.Migrations
                     SignUpTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AttendanceTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
