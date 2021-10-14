@@ -76,7 +76,7 @@ namespace ActivityManagement.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("Activites");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("ActivityManagement.Models.ActivityType", b =>

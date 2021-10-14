@@ -129,7 +129,7 @@ namespace ActivityManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Activites",
+                name: "Activities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -151,21 +151,21 @@ namespace ActivityManagement.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Activites", x => x.Id);
+                    table.PrimaryKey("PK_Activities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Activites_ActivityTypes_ActivityTypeId",
+                        name: "FK_Activities_ActivityTypes_ActivityTypeId",
                         column: x => x.ActivityTypeId,
                         principalTable: "ActivityTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Activites_Semesters_SemesterId",
+                        name: "FK_Activities_Semesters_SemesterId",
                         column: x => x.SemesterId,
                         principalTable: "Semesters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Activites_Teachers_CreatorId",
+                        name: "FK_Activities_Teachers_CreatorId",
                         column: x => x.CreatorId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
@@ -212,9 +212,9 @@ namespace ActivityManagement.Migrations
                 {
                     table.PrimaryKey("PK_Attachments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attachments_Activites_ActivityId",
+                        name: "FK_Attachments_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "Activites",
+                        principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -228,15 +228,16 @@ namespace ActivityManagement.Migrations
                     SignUpTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AttendanceTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasScoreChecked = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentActivities", x => new { x.StudentId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_StudentActivities_Activites_ActivityId",
+                        name: "FK_StudentActivities_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "Activites",
+                        principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -259,9 +260,9 @@ namespace ActivityManagement.Migrations
                 {
                     table.PrimaryKey("PK_TeacherActivities", x => new { x.TeacherId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_TeacherActivities_Activites_ActivityId",
+                        name: "FK_TeacherActivities_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "Activites",
+                        principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -273,18 +274,18 @@ namespace ActivityManagement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activites_ActivityTypeId",
-                table: "Activites",
+                name: "IX_Activities_ActivityTypeId",
+                table: "Activities",
                 column: "ActivityTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activites_CreatorId",
-                table: "Activites",
+                name: "IX_Activities_CreatorId",
+                table: "Activities",
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activites_SemesterId",
-                table: "Activites",
+                name: "IX_Activities_SemesterId",
+                table: "Activities",
                 column: "SemesterId");
 
             migrationBuilder.CreateIndex(
@@ -334,7 +335,7 @@ namespace ActivityManagement.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Activites");
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "ActivityTypes");
