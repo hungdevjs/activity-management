@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ActivityManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211013140636_init")]
-    partial class init
+    [Migration("20211014075649_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -257,6 +257,9 @@ namespace ActivityManagement.Migrations
 
                     b.Property<DateTime>("AttendanceTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");

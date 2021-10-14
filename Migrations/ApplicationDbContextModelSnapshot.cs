@@ -256,6 +256,9 @@ namespace ActivityManagement.Migrations
                     b.Property<DateTime>("AttendanceTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Score")
                         .HasColumnType("int");
 

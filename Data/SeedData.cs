@@ -185,7 +185,8 @@ namespace ActivityManagement.Data
                 {
                     Student = student1,
                     Activity = activity1,
-                    SignUpTime = now.AddDays(1)
+                    SignUpTime = now.AddDays(1),
+                    IsApproved = true
                 });
 
                 // assign activities to teachers
