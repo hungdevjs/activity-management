@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ActivityManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211014142917_init")]
+    [Migration("20211017005846_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace ActivityManagement.Migrations
 
                     b.Property<int>("ActivityTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("AttendanceCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");

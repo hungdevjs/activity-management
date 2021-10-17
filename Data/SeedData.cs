@@ -109,7 +109,8 @@ namespace ActivityManagement.Data
                     IsApproved = true,
                     ActivityType = activityType1,
                     Semester = semester1,
-                    Creator = teacher1
+                    Creator = teacher1,
+                    AttendanceCode = "AM01"
                 };
 
                 var activity2 = new Activity
@@ -125,7 +126,8 @@ namespace ActivityManagement.Data
                     IsApproved = true,
                     ActivityType = activityType2,
                     Semester = semester1,
-                    Creator = teacher2
+                    Creator = teacher2,
+                    AttendanceCode = "CAMP01"
                 };
 
                 var activity3 = new Activity
@@ -141,7 +143,8 @@ namespace ActivityManagement.Data
                     IsApproved = true,
                     ActivityType = activityType2,
                     Semester = semester1,
-                    Creator = teacher2
+                    Creator = teacher2,
+                    AttendanceCode = "CH01"
                 };
 
                 var activity4 = new Activity
@@ -157,7 +160,8 @@ namespace ActivityManagement.Data
                     IsApproved = true,
                     ActivityType = activityType2,
                     Semester = semester1,
-                    Creator = teacher2
+                    Creator = teacher2,
+                    AttendanceCode = "CH02"
                 };
 
                 var activity5 = new Activity
@@ -173,7 +177,8 @@ namespace ActivityManagement.Data
                     IsApproved = true,
                     ActivityType = activityType2,
                     Semester = semester1,
-                    Creator = teacher2
+                    Creator = teacher2,
+                    AttendanceCode = "PY01"
                 };
 
                 context.Activities.AddRange(activity1, activity2, activity3, activity4, activity5);

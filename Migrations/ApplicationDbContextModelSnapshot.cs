@@ -29,6 +29,9 @@ namespace ActivityManagement.Migrations
                     b.Property<int>("ActivityTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("AttendanceCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
