@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using ActivityManagement.Controllers;
+using ActivityManagement.Helpers;
 
 namespace ActivityManagement.Views
 {
@@ -32,6 +33,30 @@ namespace ActivityManagement.Views
         private void LoginButton_Click(object sender, EventArgs e)
         {
             controller.Login();
+        }
+
+        private void TeacherCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TeacherCheckBox.Checked)
+            {
+                controller.SetRole(Constants.TEACHER);
+                ManagerCheckBox.Checked = false;
+                return;
+            }
+
+            controller.SetRole(null);
+        }
+
+        private void ManagerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ManagerCheckBox.Checked)
+            {
+                controller.SetRole(Constants.MANAGER);
+                TeacherCheckBox.Checked = false;
+                return;
+            }
+
+            controller.SetRole(null);
         }
     }
 }

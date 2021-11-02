@@ -81,6 +81,7 @@ namespace ActivityManagement.Views
             this.ManagerCheckBox.TabIndex = 5;
             this.ManagerCheckBox.Text = "Manager";
             this.ManagerCheckBox.UseVisualStyleBackColor = true;
+            this.ManagerCheckBox.CheckedChanged += new System.EventHandler(this.ManagerCheckBox_CheckedChanged);
             // 
             // TeacherCheckBox
             // 
@@ -91,6 +92,7 @@ namespace ActivityManagement.Views
             this.TeacherCheckBox.TabIndex = 6;
             this.TeacherCheckBox.Text = "Teacher";
             this.TeacherCheckBox.UseVisualStyleBackColor = true;
+            this.TeacherCheckBox.CheckedChanged += new System.EventHandler(this.TeacherCheckBox_CheckedChanged);
             // 
             // LoginButton
             // 

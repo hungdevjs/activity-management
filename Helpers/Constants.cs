@@ -12,5 +12,11 @@ namespace ActivityManagement.Helpers
         public static string APPROVED = "Approved";
         public static string PENDING = "Pending";
         public static string CANCELLED = "Cancelled";
+        public static string TEACHER = "Teacher";
+        public static string MANAGER = "Manager";
+        public static string STUDENT = "Student";
+
+        // errors
+        public static string BAD_CREDENTIAL = "Bad credential";
     }
 }
