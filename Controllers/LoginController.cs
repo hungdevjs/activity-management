@@ -37,38 +37,29 @@ namespace ActivityManagement.Controllers
         }
         public void Login()
         {
-            try
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Role))
+                throw new Exception("Email or password or role is empty");
+
+            if (Role == Constants.TEACHER)
             {
-                if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Role))
-                    throw new Exception("Email or password or role is empty");
+                var user = context.Teachers.FirstOrDefault(i => i.Email == Email);
+                if (user == default) throw new Exception(Constants.BAD_CREDENTIAL);
 
-                if (Role == Constants.TEACHER)
-                {
-                    var user = context.Teachers.FirstOrDefault(i => i.Email == Email);
-                    if (user == default) throw new Exception(Constants.BAD_CREDENTIAL);
+                var validPassword = BCrypt.Net.BCrypt.Verify(Password, user.Password);
+                if (!validPassword) throw new Exception(Constants.BAD_CREDENTIAL);
 
-                    var validPassword = BCrypt.Net.BCrypt.Verify(Password, user.Password);
-                    if (!validPassword) throw new Exception(Constants.BAD_CREDENTIAL);
-
-                    state.LogIn(user.Id, user.Email, Role);
-                }
-
-                if (Role == Constants.MANAGER)
-                {
-                    var user = context.Managers.FirstOrDefault(i => i.Email == Email);
-                    if (user == default) throw new Exception(Constants.BAD_CREDENTIAL);
-
-                    var validPassword = BCrypt.Net.BCrypt.Verify(Password, user.Password);
-                    if (!validPassword) throw new Exception(Constants.BAD_CREDENTIAL);
-
-                    state.LogIn(user.Id, user.Email, Role);
-                }
-
-                MessageBox.Show("Log in successfully!"); // redirect to home page
+                state.LogIn(user.Id, user.Email, Role);
             }
-            catch(Exception ex)
+
+            if (Role == Constants.MANAGER)
             {
-                MessageBox.Show(ex.Message);
+                var user = context.Managers.FirstOrDefault(i => i.Email == Email);
+                if (user == default) throw new Exception(Constants.BAD_CREDENTIAL);
+
+                var validPassword = BCrypt.Net.BCrypt.Verify(Password, user.Password);
+                if (!validPassword) throw new Exception(Constants.BAD_CREDENTIAL);
+
+                state.LogIn(user.Id, user.Email, Role);
             }
         }
     }

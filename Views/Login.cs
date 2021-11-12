@@ -32,7 +32,17 @@ namespace ActivityManagement.Views
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            controller.Login();
+            try
+            {
+                controller.Login();
+                var home = new Home();
+                home.Show();
+                Hide();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void TeacherCheckBox_CheckedChanged(object sender, EventArgs e)

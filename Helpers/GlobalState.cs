@@ -10,9 +10,9 @@ namespace ActivityManagement.Helpers
 
         private static GlobalState instance;
 
-        private static int CurrentUserId { get; set; }
-        private static string CurrentUserEmail { get; set; }
-        private static string CurrentUserRole { get; set; }
+        public int CurrentUserId { get; set; }
+        public string CurrentUserEmail { get; set; }
+        public string CurrentUserRole { get; set; }
         public static GlobalState GetInstance()
         {
             if (instance == null)
