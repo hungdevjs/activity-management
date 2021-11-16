@@ -85,6 +85,7 @@ namespace ActivityManagement.Views
             this.ActivityBtn.TabIndex = 5;
             this.ActivityBtn.Text = "Activities";
             this.ActivityBtn.UseVisualStyleBackColor = true;
+            this.ActivityBtn.Click += new System.EventHandler(this.ActivityBtn_Click);
             // 
             // ActivityTypeBtn
             // 

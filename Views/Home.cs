@@ -34,5 +34,12 @@ namespace ActivityManagement.Views
             changePassword.Show();
             Hide();
         }
+
+        private void ActivityBtn_Click(object sender, EventArgs e)
+        {
+            var activityList = new ActivityList();
+            activityList.Show();
+            Hide();
+        }
     }
 }
