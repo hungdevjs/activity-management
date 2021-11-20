@@ -57,5 +57,20 @@ namespace ActivityManagement.Views
                 MessageBox.Show(ex.Message);
             }
         }
+
+        void ActivityListView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (ActivityListView.Rows[e.RowIndex].IsNewRow == true)
+            {
+                // Set default value for each column here.
+                ActivityListView.Rows[e.RowIndex].Cells[14].Value = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
+                ActivityListView.Rows[e.RowIndex].Cells[15].Value = DateTime.MinValue.ToString("MM/dd/yyyy hh:mm tt");
+                ActivityListView.Rows[e.RowIndex].Cells[9].Value = false;
+            }
+            else
+            {
+                ActivityListView.Rows[e.RowIndex].Cells[15].Value = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
+            }
+        }
     }
 }

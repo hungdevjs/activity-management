@@ -63,6 +63,7 @@ namespace ActivityManagement.Views
             this.ActivityListView.RowTemplate.Height = 25;
             this.ActivityListView.Size = new System.Drawing.Size(760, 408);
             this.ActivityListView.TabIndex = 9;
+            this.ActivityListView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivityListView_RowEnter);
             // 
             // UpdateBtn
             // 
