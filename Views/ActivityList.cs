@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 using ActivityManagement.Controllers;
 
@@ -13,11 +14,18 @@ namespace ActivityManagement.Views
     public partial class ActivityList : Form
     {
         private ActivityController controller;
+        private readonly SqlDataAdapter _sqlDataAdapter;
+        private readonly BindingSource _bindingSource;
+        private readonly DataTable _dataTable;
 
         public ActivityList()
         {
             controller = new ActivityController();
             InitializeComponent();
+            var (bindingSource, sqlDataAdapter, dataTable) = controller.LoadData();
+            _bindingSource = bindingSource;
+            _sqlDataAdapter = sqlDataAdapter;
+            _dataTable = dataTable;
             LoadData();
         }
 
@@ -30,27 +38,24 @@ namespace ActivityManagement.Views
 
         private void LoadData()
         {
-            var data = controller.LoadData();
-            var items = new List<ListViewItem>();
-            foreach (var item in data)
+            ActivityListView.DataSource = _bindingSource;
+            ActivityListView.Columns[0].ReadOnly = true;
+            ActivityListView.Columns[9].ReadOnly = true;
+            ActivityListView.Columns[14].ReadOnly = true;
+            ActivityListView.Columns[15].ReadOnly = true;
+        }
+
+        private void UpdateBtn_Click(object sender, EventArgs e)
+        {
+            try
             {
-                string[] row =
-                {
-                    item.Name,
-                    item.Description,
-                    item.StartTime,
-                    item.EndTime,
-                    item.SignUpStartTime,
-                    item.SignUpEndTime,
-                    item.NumberOfStudents.ToString(),
-                    item.ActivityType,
-                    item.Semester,
-                    item.AttendanceCode,
-                    item.IsApproved.ToString()
-                };
-                ActivityListView.Rows.Add(row);
+                _sqlDataAdapter.Update(_dataTable);
+                MessageBox.Show("Update activity list successfully");
             }
-            Console.WriteLine(items);
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

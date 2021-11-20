@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
+
 
 using ActivityManagement.Data;
 using ActivityManagement.Helpers;
@@ -34,42 +35,30 @@ namespace ActivityManagement.Controllers
             state = GlobalState.GetInstance();
         }
 
-        public List<ActivityItem> LoadData()
+        public (BindingSource, SqlDataAdapter, DataTable) LoadData()
         {
             var userId = state.CurrentUserId;
             var role = state.CurrentUserRole;
             var isTeacher = role == Constants.TEACHER;
             var isManager = role == Constants.MANAGER;
 
-            if (!isTeacher) return new List<ActivityItem>();
+            if (!isTeacher) return (null, null, null);
 
-            var activities = context.Activities
-                .Include(i => i.ActivityType)
-                .Include(i => i.Semester)
-                .Where(i => i.CreatorId == userId)
-                .ToList()
-                .Select(i => new ActivityItem
-                {
-                    Name = i.Name,
-                    Description = i.Description,
-                    StartTime = FormatDate(i.StartTime),
-                    EndTime = FormatDate(i.EndTime),
-                    SignUpStartTime = FormatDate(i.SignUpStartTime),
-                    SignUpEndTime = FormatDate(i.SignUpEndTime),
-                    NumberOfStudents = i.NumberOfStudents,
-                    ActivityType = i.ActivityType.Name,
-                    Semester = i.Semester.Name,
-                    AttendanceCode = i.AttendanceCode,
-                    IsApproved = i.IsApproved
-                })
-                .ToList();
+            var connectionString = Constants.ConnectionString;
+            var sqlConnection = new SqlConnection(connectionString);
+            var selectQueryString = $"SELECT * FROM Activities where CreatorId = {userId}";
 
-            return activities;
-        }
+            sqlConnection.Open();
 
-        private string FormatDate(DateTime date)
-        {
-            return date.ToString("MM/dd/yyyy HH:mm");
+            var sqlDataAdapter = new SqlDataAdapter(selectQueryString, sqlConnection);
+            var sqlCommandBuilder = new SqlCommandBuilder(sqlDataAdapter);
+
+            var dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            var bindingSource = new BindingSource();
+            bindingSource.DataSource = dataTable;
+
+            return (bindingSource, sqlDataAdapter, dataTable);
         }
     }
 }
