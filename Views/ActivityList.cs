@@ -40,9 +40,13 @@ namespace ActivityManagement.Views
         {
             ActivityListView.DataSource = _bindingSource;
             ActivityListView.Columns[0].ReadOnly = true;
-            ActivityListView.Columns[9].ReadOnly = true;
             ActivityListView.Columns[14].ReadOnly = true;
             ActivityListView.Columns[15].ReadOnly = true;
+
+            if (controller.isTeacher)
+            {
+                ActivityListView.Columns[9].ReadOnly = true;
+            }
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
@@ -65,7 +69,10 @@ namespace ActivityManagement.Views
                 // Set default value for each column here.
                 ActivityListView.Rows[e.RowIndex].Cells[14].Value = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
                 ActivityListView.Rows[e.RowIndex].Cells[15].Value = DateTime.MinValue.ToString("MM/dd/yyyy hh:mm tt");
-                ActivityListView.Rows[e.RowIndex].Cells[9].Value = false;
+                if (ActivityListView.Rows[e.RowIndex].Cells[9].Value == null)
+                {
+                    ActivityListView.Rows[e.RowIndex].Cells[9].Value = false;
+                }
             }
             else
             {

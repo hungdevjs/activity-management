@@ -30,7 +30,6 @@ namespace ActivityManagement.Views
         private void InitializeComponent()
         {
             this.BackBtn = new System.Windows.Forms.Button();
-            this.CreateActivityBtn = new System.Windows.Forms.Button();
             this.ActivityListView = new System.Windows.Forms.DataGridView();
             this.UpdateBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ActivityListView)).BeginInit();
@@ -45,15 +44,6 @@ namespace ActivityManagement.Views
             this.BackBtn.Text = "Back";
             this.BackBtn.UseVisualStyleBackColor = true;
             this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
-            // 
-            // CreateActivityBtn
-            // 
-            this.CreateActivityBtn.Location = new System.Drawing.Point(93, 12);
-            this.CreateActivityBtn.Name = "CreateActivityBtn";
-            this.CreateActivityBtn.Size = new System.Drawing.Size(75, 23);
-            this.CreateActivityBtn.TabIndex = 8;
-            this.CreateActivityBtn.Text = "Create activity";
-            this.CreateActivityBtn.UseVisualStyleBackColor = true;
             // 
             // ActivityListView
             // 
@@ -82,7 +72,6 @@ namespace ActivityManagement.Views
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.UpdateBtn);
             this.Controls.Add(this.ActivityListView);
-            this.Controls.Add(this.CreateActivityBtn);
             this.Controls.Add(this.BackBtn);
             this.Name = "ActivityList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -95,7 +84,6 @@ namespace ActivityManagement.Views
         #endregion
 
         private System.Windows.Forms.Button BackBtn;
-        private System.Windows.Forms.Button CreateActivityBtn;
         private System.Windows.Forms.DataGridView ActivityListView;
         private System.Windows.Forms.Button UpdateBtn;
     }

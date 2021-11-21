@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Data;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 
 using ActivityManagement.Data;
 using ActivityManagement.Helpers;
+using ActivityManagement.Models;
 
 namespace ActivityManagement.Controllers
 {
@@ -28,25 +30,39 @@ namespace ActivityManagement.Controllers
     {
         private ApplicationDbContext context { get; set; }
         private GlobalState state { get; set; }
+        public int userId { get; set; }
+        public bool isTeacher { get; set; }
+        public bool isManager { get; set; }
 
         public ActivityController()
         {
             context = new ApplicationDbContext();
             state = GlobalState.GetInstance();
+            userId = state.CurrentUserId;
+            var role = state.CurrentUserRole;
+            isTeacher = role == Constants.TEACHER;
+            isManager = role == Constants.MANAGER;
         }
 
         public (BindingSource, SqlDataAdapter, DataTable) LoadData()
         {
-            var userId = state.CurrentUserId;
-            var role = state.CurrentUserRole;
-            var isTeacher = role == Constants.TEACHER;
-            var isManager = role == Constants.MANAGER;
+            var semester = GetCurrentSemester();
 
-            if (!isTeacher) return (null, null, null);
+            if (semester == default) return (null, null, null);
 
             var connectionString = Constants.ConnectionString;
             var sqlConnection = new SqlConnection(connectionString);
-            var selectQueryString = $"SELECT * FROM Activities where CreatorId = {userId}";
+            var selectQueryString = "";
+
+            if (isTeacher)
+            {
+                selectQueryString = $"SELECT * FROM Activities where SemesterId = {semester.Id} and CreatorId = {userId}";
+            }
+
+            if (isManager)
+            {
+                selectQueryString = $"SELECT * FROM Activities where SemesterId = {semester.Id}";
+            }
 
             sqlConnection.Open();
 
@@ -59,6 +75,15 @@ namespace ActivityManagement.Controllers
             bindingSource.DataSource = dataTable;
 
             return (bindingSource, sqlDataAdapter, dataTable);
+        }
+
+        private Semester GetCurrentSemester()
+        {
+            var now = DateTime.Now;
+            var semester = context.Semesters
+                .Include(i => i.Year)
+                .FirstOrDefault(i => i.StartTime <= now && now <= i.EndTime);
+            return semester;
         }
     }
 }
